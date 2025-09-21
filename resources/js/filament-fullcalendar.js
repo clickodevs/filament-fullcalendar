@@ -176,6 +176,9 @@ export default function fullcalendar({
                     this.draggable ||
                     new Draggable(jobs, {
                         itemSelector: '.job-item',
+                        eventData: function(eventEl) {
+                          return JSON.parse(eventEl.querySelector('.job-data').dataset.event);
+                        }
                     })
             }
         },
