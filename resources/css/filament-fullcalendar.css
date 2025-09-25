@@ -60,7 +60,7 @@ html.dark .filament-fullcalendar {
 }
 
 .filament-fullcalendar .fc-toolbar-title {
-    @apply !text-lg leading-5 md:!text-3xl;
+    @apply !text-lg leading-5;
 }
 
 .filament-fullcalendar.fc .fc-button {
