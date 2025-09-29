@@ -52,8 +52,10 @@ export default function fullcalendar({
                 eventWillUnmount,
                 droppable: true,
                 eventReceive: async ({ event, revert }) => {
-                    await this.$wire.onUnassignEventDrop(event)
-                    revert()
+                    const shouldRevert = await this.$wire.onUnassignEventDrop(event)
+                    if (typeof shouldRevert === 'boolean' && shouldRevert) {
+                        revert()
+                    }
                 },
                 events: (info, successCallback, failureCallback) => {
                     this.$wire
