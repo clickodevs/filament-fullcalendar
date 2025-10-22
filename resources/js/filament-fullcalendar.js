@@ -30,6 +30,7 @@ export default function fullcalendar({
     eventWillUnmount,
 }) {
     return {
+				dropResource: null,
         init() {
             /** @type Calendar */
             const calendar = new Calendar(this.$el, {
@@ -52,10 +53,17 @@ export default function fullcalendar({
                 eventWillUnmount,
                 droppable: true,
                 eventReceive: async ({ event, revert, relatedEvents }) => {
-                    const shouldRevert = await this.$wire.onUnassignEventDrop(event, relatedEvents)
+                    const shouldRevert = await this.$wire.onUnassignEventDrop(event, relatedEvents, this.dropResource)
                     if (typeof shouldRevert === 'boolean' && shouldRevert) {
                         revert()
                     }
+                },
+                drop: async ({resource}) => {
+										if (resource) {
+											this.dropResource = resource;
+										} else {
+  										this.dropResource = null;
+										}
                 },
                 events: (info, successCallback, failureCallback) => {
                     this.$wire
